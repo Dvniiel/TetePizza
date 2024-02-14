@@ -1,0 +1,51 @@
+--CREACION DE LA BASE DE DATOS
+CREATE DATABASE TetePizza;
+USE TetePizza;
+
+
+
+-- TABLA DE PIZZAS
+CREATE TABLE Pizza (
+    idPizza NVARCHAR(50)PRIMARY KEY,
+    nombrePizza NVARCHAR(100) NOT NULL,
+    precioPizza DECIMAL(18,2)NOT NULL
+);
+
+
+
+-- TABLA DE PEDIDOS
+CREATE TABLE Pedidos (
+    idPedido NVARCHAR(50) PRIMARY KEY,
+    precioPedido DECIMAL(18,2) NOT NULL,
+    idUsuario NVARCHAR NOT NULL,  
+    FOREIGN KEY (idUsuario) REFERENCES USUARIO(idUsuario)
+);
+
+
+-- TABLA DE PEDIDOS_PIZZA
+CREATE TABLE Pedidos_Pizzas (
+    idPedido NVARCHAR(50) NOT NULL,
+    idPizza NVARCHAR(50) NOT NULL,
+    FOREIGN KEY (idPedido) REFERENCES PEDIDOS (idPedido),
+    FOREIGN KEY (idPizza) REFERENCES PIZZA (idPizza)
+);
+
+
+
+-- TABLA DE INGREDIENTES
+CREATE TABLE Ingredientes (
+   idIngrediente NVARCHAR(50) PRIMARY KEY,
+   nombreIngrediente NVARCHAR(50) NOT NULL,
+   tipo NVARCHAR(50) NOT NULL,
+   cantidad INT NOT NULL,
+   precio DECIMAL(18, 2),
+   isGlutenFree BIT
+);
+
+
+-- TABLA DE USUARIOS
+CREATE TABLE Usuario (
+    idUsuario NVARCHAR PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    direccion VARCHAR(100) NOT NULL
+);
